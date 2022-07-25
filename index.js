@@ -1,10 +1,25 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config()
 
 //create express app
 const app = express();
 
+//public directory
+app.use(express.static('public'));
+
+//parser for post data
+app.use(express.json());
+
+//routes 
+//TODO: auth / create / login / logout / profile / renote / delete
+app.use('/api/auth', require('./routes/auth'));
+//CRUD: create, read, update, delete
+
+
+
 
 //define port
-app.listen(4000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server running on port 4000');
 });
