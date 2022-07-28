@@ -16,11 +16,13 @@ const validateJWT = (req, res = response, next) => {
 
     try {
         // Verify token
-        const { uid, name } = jwt.verify(token, process.env.SECRET_JWT_SEED);
-        // Add user to request object
-        req.uid = uid;
-        req.name = name;
-      
+        jwt.verify(token, process.env.SECRET_JWT_SEED, (err, decoded) => {
+            if(err) {
+                return res.status(400).send('Session expired')
+            }
+            req.uid = decoded.uid;
+            req.name = decoded.name;
+        })
     } catch (err) {
         return res.status(401).json({
             ok: false,

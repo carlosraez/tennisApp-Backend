@@ -35,7 +35,7 @@ router.post('/create',[
  * renew token
  * host + /api/auth/renewtoken
  */
- router.get('/renewtoken',validateJWT ,renewtoken);
+ router.get('/renewtoken', validateJWT ,renewtoken);
 
 
 module.exports = router;
