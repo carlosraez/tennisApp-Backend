@@ -5,14 +5,14 @@ const generateToken  = require('../helpers/jwt');
 
 const createUser = async (req, res = response) => {  
     try {
-        let user = await User.findOne({ email: req.body.email });
-        if (user) {
+        let userData = await User.findOne({ email: req.body.email });
+        if (userData) {
             return res.status(400).json({
                 ok: false,
                 message: 'User already exists',
             })
         }
-        user = new User(req.body);
+        const user = new User(req.body);
         const salt = bycryptPassword.genSaltSync(10);
         user.password = bycryptPassword.hashSync(user.password, salt);
 
@@ -43,9 +43,9 @@ const createUser = async (req, res = response) => {
 const loginUser = async (req, res = response) => {
     const { email, password } = req.body;
     try {
-
         // Find user by email
-        let user = await User.findOne({ email });
+        console.log(email, password);
+        let user = await User.findOne({ email});
         if (!user) { 
             return res.status(400).json({
                 ok: false,
