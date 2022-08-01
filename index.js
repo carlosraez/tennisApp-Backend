@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config()
 var cors = require('cors')
 const { dbConnection } = require('./database/config');
+const { validateJWT } = require('./middlewares/validate-jwt');
 
 //create express app
 const app = express();
@@ -20,12 +21,8 @@ app.use(express.static('public'));
 app.use(express.json());
 
 //routes 
-//TODO: auth / create / login / logout / profile / renote / delete
 app.use('/api/auth', require('./routes/auth'));
-//CRUD: create, read, update, delete
-
-
-
+app.use('/api/players', require('./routes/players'));
 
 //define port
 app.listen(process.env.PORT, () => {
