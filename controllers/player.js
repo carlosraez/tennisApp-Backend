@@ -2,9 +2,12 @@ const { response } = require('express');
 const Player  = require('../models/Player');
 
 const getPlayers = async (req, res = response) => {  
+    
+    const players = await Player.find()
+    .populate('user')
     return res.status(201).json({
        ok: true,
-      
+       players,      
     })      
 }
 
@@ -19,8 +22,6 @@ const createPlayer = async (req, res = response) => {
         }
    
         const user = new Player(req.body);
-        
-        console.log(playerId);
 
         await user.save()
         
@@ -28,7 +29,7 @@ const createPlayer = async (req, res = response) => {
             ok: true,
             player: user,
          })
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -38,23 +39,35 @@ const createPlayer = async (req, res = response) => {
     }   
 }
 
-const UpdatePlayer = async (req, res = response) => {  
+const updatePlayer = async (req, res = response) => {  
     return res.status(201).json({
        ok: true,
        player: user,
     })      
 }
 
-const DeletePlayer = async (req, res = response) => {  
-         return res.status(201).json({
+const deletePlayer = async (req, res = response) => {
+    try {
+        const player = await Player.findByIdAndDelete(req.body.id)
+        return res.status(201).json({
             ok: true,
-            player: user,
-         })      
-}
+            message: 'Player deleted',
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            message: 'Error inesperado',
+        })
+    }     
+}  
+             
+
 
 module.exports = {
-    UpdatePlayer,
+    updatePlayer,
     createPlayer,
-    DeletePlayer,
+    deletePlayer,
     getPlayers,
 };

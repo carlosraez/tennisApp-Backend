@@ -5,7 +5,7 @@
  const express = require('express');
  const router = express.Router();
  const { check } = require('express-validator');
- const { createPlayer, getPlayers } = require('../controllers/player'); 
+ const { createPlayer, getPlayers, deletePlayer } = require('../controllers/player'); 
  const { validateFields } = require('../middlewares/validateFields');
  const { validateJWT } = require('../middlewares/validate-jwt');
 
@@ -27,5 +27,11 @@
     check('level', 'Level must be 3 characters').isLength({ min: 3 }),
     validateFields,
  ] , validateJWT,createPlayer);
+
+  /**
+  * create new player
+  * host + /api/player/create
+  */
+  router.delete('/deletePlayer', validateJWT ,deletePlayer);
  
  module.exports = router;

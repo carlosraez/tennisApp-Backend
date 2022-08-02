@@ -5,6 +5,7 @@ const playerSchema = new Schema({
         type: String,
         required: true,
         minlength: 3,
+        unique: true,
     },
     tennisShot: {
         type: String,
@@ -21,10 +22,6 @@ const playerSchema = new Schema({
     },
     level: { 
         type: String,
-        required: true,
-    },
-    id: {
-        type: Number,
         required: true,
     },
     user: {
