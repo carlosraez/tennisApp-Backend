@@ -39,16 +39,9 @@ const createPlayer = async (req, res = response) => {
     }   
 }
 
-const updatePlayer = async (req, res = response) => {  
-    return res.status(201).json({
-       ok: true,
-       player: user,
-    })      
-}
-
 const deletePlayer = async (req, res = response) => {
     try {
-        const player = await Player.findByIdAndDelete(req.body.id)
+        await Player.findByIdAndDelete(req.body.id)
         return res.status(201).json({
             ok: true,
             message: 'Player deleted',
@@ -62,7 +55,25 @@ const deletePlayer = async (req, res = response) => {
         })
     }     
 }  
-             
+    
+const updatePlayer = async (req, res = response) => {
+    try {
+        await Player.findByIdAndUpdate(req.body.id, req.body, { new: true })
+     
+        return res.status(201).json({
+            ok: true,
+            message: 'Player updated',
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            message: 'Error inesperado',
+        })
+    }     
+}
+ 
 
 
 module.exports = {

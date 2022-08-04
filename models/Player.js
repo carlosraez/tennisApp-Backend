@@ -5,7 +5,6 @@ const playerSchema = new Schema({
         type: String,
         required: true,
         minlength: 3,
-        unique: true,
     },
     tennisShot: {
         type: String,

@@ -5,7 +5,7 @@
  const express = require('express');
  const router = express.Router();
  const { check } = require('express-validator');
- const { createPlayer, getPlayers, deletePlayer } = require('../controllers/player'); 
+ const { createPlayer, getPlayers, deletePlayer, updatePlayer } = require('../controllers/player'); 
  const { validateFields } = require('../middlewares/validateFields');
  const { validateJWT } = require('../middlewares/validate-jwt');
 
@@ -29,9 +29,15 @@
  ] , validateJWT,createPlayer);
 
   /**
-  * create new player
-  * host + /api/player/create
+  * delete player
+  * host + /api/player/delete
   */
   router.delete('/deletePlayer', validateJWT ,deletePlayer);
+
+   /**
+  * Update player
+  * host + /api/player/update
+  */
+   router.put('/updatePlayer', validateJWT ,updatePlayer);
  
  module.exports = router;
