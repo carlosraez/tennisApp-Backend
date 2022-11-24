@@ -38,8 +38,6 @@ const createUser = async (req, res = response) => {
         
 }
     
-
-
 const loginUser = async (req, res = response) => {
     const { email, password } = req.body;
     try {
@@ -82,7 +80,6 @@ const loginUser = async (req, res = response) => {
         
     }
    
-
 const renewtoken = async (req, res = response) => {
     const { uid, name } = req;
     const token = await generateToken(uid, name);
